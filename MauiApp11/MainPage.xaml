@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MauiApp1.ViewModel"   
+             x:Class="MauiApp11.MainPage"
+             x:DataType="viewmodels:MainViewModel">
+
+    <Grid RowDefinitions="140,Auto,Auto,*" ColumnDefinitions="0.8*,0.2*" Padding="12">
+
+        <!-- Üstteki Görsel -->
+        <Image Grid.ColumnSpan="2"
+               Source="dotnet_bot.png"
+               BackgroundColor="Orange" />
+
+        <!-- Renk Girişi -->
+        <Entry Placeholder="Bir renk girin: " 
+               PlaceholderColor="Blue"
+               TextColor="Black"
+               Grid.Row="1"
+               Text="{Binding Color}"
+               x:Name="ColorNameEntry" />
+
+        <!-- Renk Ekle Butonu -->
+        <Button Text="Renk Ekle"
+                Grid.Row="1"
+                Grid.Column="1"
+           
+                Command="{Binding AddColorCommand}"
+                />
+
+        <!-- Renk Sil Butonu -->
+        <Button Text="Renk Sil"
+                Grid.Row="2"
+                Grid.Column="1"
+                Command="{Binding DeleteColorCommand}"
+                CommandParameter="{Binding Source={x:Reference ColorNameEntry}, Path=Text}" />
+
+        <!-- Renk Listesi -->
+        <CollectionView Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding ColorItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="0,4">
+                        <Frame CornerRadius="6" BorderColor="LightGray" Padding="8">
+                            <Label Text="{Binding .}" FontSize="Medium" VerticalOptions="Center" />
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
